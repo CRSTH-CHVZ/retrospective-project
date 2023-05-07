@@ -7,16 +7,28 @@ const cors = require('cors');
 
 app.use(cors());
 const server = http.createServer(app);
-
+// models
+const {Column, Card} = require('./models/Model')
+const createDefaultColumns = async () => {
+    const defaultColumns = ['Qué hizo bien', 'Para mejorar', 'Kudos'];
+    //validamos si existen las columnas del kanban, en caso contrario se crean
+    for (const title of defaultColumns) {
+        const existingColumn = await Column.findOne({ title });
+        if (!existingColumn) {
+            const newColumn = new Column({ title });
+            await newColumn.save();
+        }
+    }
+};
 mongoose.connect('mongodb://127.0.0.1:27017/retrospective-project', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(() => console.log("Connected to MongoDB")).catch(console.error);
-
-// models
-const {Column, Card} = require('./models/Model')
-
-
+})
+        .then(() => {
+            console.log("Connected to MongoDB");
+            createDefaultColumns();
+        })
+        .catch(console.error);
 const io = new Server( server, {
     cors: {
         origin: "http://localhost:3000",
@@ -24,7 +36,6 @@ const io = new Server( server, {
         methods: ["GET", "POST", "PUT", "DELETE"]
     }
 });
-
 io.on("connection",
     (socket) => {
     console.log(`User connected: ${ socket.id }`)
@@ -34,7 +45,17 @@ io.on("connection",
             socket.broadcast.emit("receive_message", data)
         })
     });
-
 server.listen(3001, () => {
     console.log("SERVER IS RUNNING")
 })
+// COLUMNS
+app.get('/columns', async (req, res) => {
+    try {
+        const columns = await Column.find();
+        res.json(columns);
+    } catch (err){
+        console.error(err);
+        res.status(200).send('Failed');
+    }
+});
+// CARDS
