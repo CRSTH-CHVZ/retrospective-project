@@ -14,12 +14,17 @@ const cardSchema = new Schema({
         type: Boolean
     },
     amountOfLikes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     comments: {
         type: [String],
         default: []
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const commentSchema = new mongoose.Schema({
