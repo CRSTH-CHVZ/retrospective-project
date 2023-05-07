@@ -8,8 +8,8 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 const server = http.createServer(app);
-// models
-const {Column, Card} = require('./models/Model')
+const Column = require('./models/Column');
+const Card = require('./models/Card');
 const createDefaultColumns = async () => {
     const defaultColumns = ['Que hizo bien', 'Para mejorar', 'Kudos'];
     //validamos si existen las columnas del kanban, en caso contrario se crean
@@ -52,11 +52,11 @@ server.listen(3001, () => {
 // COLUMNS
 app.get('/columns', async (req, res) => {
     try {
-        const columns = await Column.find();
+        const columns = await Column.find().populate('cards');
         res.json(columns);
     } catch (err){
         console.error(err);
-        res.status(200).send('Failed');
+        res.status(500).send('Failed');
     }
 });
 // Metodo para llamar columnas con array de tarjetas, por el momento se desusa
@@ -104,3 +104,5 @@ app.put('/card/edit/:id', async (req, res) => {
     card.save();
     res.json(card);
 })
+
+//COMMENTS
