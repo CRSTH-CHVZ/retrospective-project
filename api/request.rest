@@ -10,10 +10,24 @@ POST http://localhost:3001/card/new
 Content-Type: application/json
 
 {
-  "text": "prueba 2",
+  "text": "prueba 3",
   "column": "6457c92966f406a39e79b878",
   "amountOfLikes": 0,
   "isLike": true
 }
 
 ###
+
+DELETE http://localhost:3001/card/delete/6457ee4eeccf7fc356b60256
+
+###
+
+PUT http://localhost:3001/card/edit/6457ef320de709ed0d0db038
+Content-Type: application/json
+
+{
+  "text": "renamed",
+  "column": "6457c92966f406a39e79b878",
+  "amountOfLikes": 20,
+  "isLike": false
+}

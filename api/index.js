@@ -71,8 +71,20 @@ app.post('/card/new', (req, res) => {
         text: req.body?.text,
         column: req.body?.column,
         isLike: req.body?.isLike
-
     })
     card.save();
     res.json(card);
 });
+app.delete('/card/delete/:id', async (req, res) => {
+    const result = await Card.findByIdAndDelete(req.params.id);
+    res.json(result);
+});
+app.put('/card/edit/:id', async (req, res) => {
+    const card = await Card.findById(req.params.id);
+
+    card.text = req.body?.text;
+    card.column = req.body?.column;
+
+    card.save();
+    res.json(card);
+})
