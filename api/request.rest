@@ -3,3 +3,17 @@ GET http://localhost:3001/columns
 
 ###
 //cards
+GET http://localhost:3001/cards
+
+###
+POST http://localhost:3001/card/new
+Content-Type: application/json
+
+{
+  "text": "prueba 2",
+  "column": "6457c92966f406a39e79b878",
+  "amountOfLikes": 0,
+  "isLike": true
+}
+
+###

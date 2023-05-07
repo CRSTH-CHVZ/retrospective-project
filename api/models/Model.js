@@ -2,24 +2,46 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const cardSchema = new Schema({
-    title: {
+    text: {
         type: String, required: true
-    },
-    description: {
-        type: String
     },
     column: {
         type: Schema.Types.ObjectId,
         ref: 'Column',
         required: true
+    },
+    isLike: {
+        type: Boolean
+    },
+    amountOfLikes: {
+        type: Number
+    },
+    comments: {
+        type: [String],
+        default: []
     }
+});
+
+const commentSchema = new mongoose.Schema({
+    text: {
+        type: String,
+        required: true,
+    },
+    user: {
+        type: String,
+        required: true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const columnSchema = new Schema({
     title: {
         type: String,
         enum: [
-            'Qué hizo bien',
+            'Que hizo bien',
             'Para mejorar',
             'Kudos'
         ],

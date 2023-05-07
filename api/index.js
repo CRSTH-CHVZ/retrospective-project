@@ -5,12 +5,13 @@ const mongoose = require('mongoose');
 const { Server } = require('socket.io');
 const cors = require('cors');
 
+app.use(express.json());
 app.use(cors());
 const server = http.createServer(app);
 // models
 const {Column, Card} = require('./models/Model')
 const createDefaultColumns = async () => {
-    const defaultColumns = ['Qué hizo bien', 'Para mejorar', 'Kudos'];
+    const defaultColumns = ['Que hizo bien', 'Para mejorar', 'Kudos'];
     //validamos si existen las columnas del kanban, en caso contrario se crean
     for (const title of defaultColumns) {
         const existingColumn = await Column.findOne({ title });
@@ -59,3 +60,19 @@ app.get('/columns', async (req, res) => {
     }
 });
 // CARDS
+app.get('/cards', async (req, res) => {
+    const cards = await Card.find();
+
+    res.json(cards);
+});
+app.post('/card/new', (req, res) => {
+    console.log(req.body)
+    const card = new Card({
+        text: req.body?.text,
+        column: req.body?.column,
+        isLike: req.body?.isLike
+
+    })
+    card.save();
+    res.json(card);
+});
