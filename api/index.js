@@ -59,6 +59,22 @@ app.get('/columns', async (req, res) => {
         res.status(200).send('Failed');
     }
 });
+// Metodo para llamar columnas con array de tarjetas, por el momento se desusa
+// app.get('/:columnId/cards', async (req, res) => {
+//     try {
+//         const columnId = req.params.columnId;
+//         const result = await Card.findById(columnId).populate('cards');
+//         if(!result){
+//             return res.status(404).json({message: 'Columna no encontrada'})
+//         }
+//         res.json(result.cards);
+//     }
+//     catch (err){
+//         res.status(500).json({ message:err.message});
+//     }
+// })
+
+
 // CARDS
 app.get('/cards', async (req, res) => {
     const cards = await Card.find();

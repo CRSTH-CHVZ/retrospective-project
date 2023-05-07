@@ -3,6 +3,14 @@ GET http://localhost:3001/columns
 
 ###
 //cards
+#Metodo para llamar columnas con array de tarjetas, por el momento se desusa
+#GET http://localhost:3001/6457c92966f406a39e79b878p/cards
+#Content-Type: application/json
+#
+#{
+#  "columnId": "6457c92966f406a39e79b878"
+#}
+###
 GET http://localhost:3001/cards
 
 ###
@@ -22,12 +30,12 @@ DELETE http://localhost:3001/card/delete/6457ee4eeccf7fc356b60256
 
 ###
 
-PUT http://localhost:3001/card/edit/6457ef320de709ed0d0db038
+PUT http://localhost:3001/card/edit/64582501ef38404329263392
 Content-Type: application/json
 
 {
-  "text": "renamed",
-  "column": "6457c92966f406a39e79b878",
-  "amountOfLikes": 20,
-  "isLike": false
+  "text": "EXPERIMENTO",
+  "column": "6457f4aac643c4e0fe96d497",
+  "amountOfLikes": 99,
+  "isLike": true
 }
