@@ -81,15 +81,28 @@ app.get('/cards', async (req, res) => {
 
     res.json(cards);
 });
-app.post('/card/new', (req, res) => {
+app.post('/card/new', async (req, res) => {
     console.log(req.body)
-    const card = new Card({
-        text: req.body?.text,
-        column: req.body?.column,
-        isLike: req.body?.isLike
-    })
-    card.save();
-    res.json(card);
+    try{
+        const { text, isLike, columnId } = req.body;
+        const column = await Column.findById(columnId);
+        if (!column) {
+            return res.status(404).json({ message: 'Columna no encontrada' });
+        }
+        const newCard = new Card({
+            text,
+            column: column._id,  // Establecer la referencia a la columna
+            isLike,
+        });
+        await newCard.save();
+        column.cards.push(newCard._id);
+        await column.save();
+        res.json(newCard);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al agregar la tarjeta' });
+    }
+
 });
 app.delete('/card/delete/:id', async (req, res) => {
     const result = await Card.findByIdAndDelete(req.params.id);
