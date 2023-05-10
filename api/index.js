@@ -101,7 +101,7 @@ app.put('/card/edit/:id', async (req, res) => {
 })
 
 //COMMENTS
-app.post('/cards/comment', async (req, res) => {
+app.post('/card/comment', async (req, res) => {
     try{
         const { text, cardId } = req.body;
         const card = await Card.findById(cardId);
@@ -121,5 +121,28 @@ app.post('/cards/comment', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error al agregar la comentario' });
+    }
+});
+app.delete('/card/:cardId/comment/:commentId', async (req, res) => {
+    try {
+        const { cardId, commentId } = req.params;
+
+        const card = await Card.findById(cardId);
+        if (!card) {
+            return res.status(404).json({ message: 'Tarjeta no encontrada' });
+        }
+
+        const commentIndex = card.comments.findIndex(comment => comment._id.toString() === commentId);
+        if (commentIndex === -1) {
+            return res.status(404).json({ message: 'Comentario no encontrado' });
+        }
+        
+        card.comments.splice(commentIndex, 1);
+        await card.save();
+
+        res.json(card);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al eliminar el comentario' });
     }
 });

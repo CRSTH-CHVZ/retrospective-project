@@ -14,7 +14,12 @@ const columnSchema = new Schema({
     cards: [{
         type: Schema.Types.ObjectId,
         ref: 'Card'
-    }]
+    }],
+    color: {
+        type: String,
+        default: "#8FC3CD",
+        required: true
+    }
 });
 
 const Column = mongoose.model('Column', columnSchema);

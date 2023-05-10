@@ -3,15 +3,17 @@ GET http://localhost:3001/columns
 
 ###
 //cards
-GET http://localhost:3001/cards
+
+#deprecado
+#GET http://localhost:3001/cards
 
 ###
 POST http://localhost:3001/card/new
 Content-Type: application/json
 
 {
-  "text": "nueva tarjeta num 2",
-  "columnId": "645be27a25286b34519fddf1",
+  "text": "nueva tarjeta 1",
+  "columnId": "645c20991738522c6cd7b4a0",
   "amountOfLikes": 0,
   "isLike": true
 }
@@ -34,10 +36,14 @@ Content-Type: application/json
 
 ###
 //comments
-POST http://localhost:3001/cards/comment
+POST http://localhost:3001/card/comment
 Content-Type: application/json
 
 {
-  "text": "un comentario",
-  "cardId": "645be58076bc5c3474888d9e"
+  "text": "este es el comentario que hay que eliminar 2",
+  "cardId": "645c23268951d11deeb807c6"
 }
+
+###
+
+DELETE http://localhost:3001/card/645c23268951d11deeb807c6/comment/645c23598951d11deeb807ca

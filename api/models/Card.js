@@ -21,7 +21,6 @@ const cardSchema = new Schema({
         type: [Object],
         default: []
     },
-    // TODO: AGREGAR CAMPO MODIFICADO
     createdAt: {
         type: Date,
         default: Date.now,
