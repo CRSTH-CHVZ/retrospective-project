@@ -18,7 +18,7 @@ const cardSchema = new Schema({
         default: 0
     },
     comments: {
-        type: [String],
+        type: [Object],
         default: []
     },
     // TODO: AGREGAR CAMPO MODIFICADO

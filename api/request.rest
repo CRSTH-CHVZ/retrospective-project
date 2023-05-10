@@ -3,14 +3,6 @@ GET http://localhost:3001/columns
 
 ###
 //cards
-#Metodo para llamar columnas con array de tarjetas, por el momento se desusa
-#GET http://localhost:3001/6457c92966f406a39e79b878p/cards
-#Content-Type: application/json
-#
-#{
-#  "columnId": "6457c92966f406a39e79b878"
-#}
-###
 GET http://localhost:3001/cards
 
 ###
@@ -18,24 +10,34 @@ POST http://localhost:3001/card/new
 Content-Type: application/json
 
 {
-  "text": "nuevo esquema",
-  "columnId": "6457c92966f406a39e79b878",
+  "text": "nueva tarjeta num 2",
+  "columnId": "645be27a25286b34519fddf1",
   "amountOfLikes": 0,
   "isLike": true
 }
 
 ###
 
-DELETE http://localhost:3001/card/delete/6457ee4eeccf7fc356b60256
+DELETE http://localhost:3001/card/delete/645be35425286b34519fde01
 
 ###
 
-PUT http://localhost:3001/card/edit/64582501ef38404329263392
+PUT http://localhost:3001/card/edit/645be32a25286b34519fddfd
 Content-Type: application/json
 
 {
-  "text": "EXPERIMENTO",
-  "column": "6457f4aac643c4e0fe96d497",
+  "text": "se modifica nueva tarjeta num 2",
+  "column": "645be27a25286b34519fddf1",
   "amountOfLikes": 99,
   "isLike": true
+}
+
+###
+//comments
+POST http://localhost:3001/cards/comment
+Content-Type: application/json
+
+{
+  "text": "un comentario",
+  "cardId": "645be58076bc5c3474888d9e"
 }

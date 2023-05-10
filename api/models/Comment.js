@@ -6,9 +6,9 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    user: {
-        type: String,
-        required: true,
+    cardId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Card'
     },
     createdAt: {
         type: Date,
@@ -16,4 +16,6 @@ const commentSchema = new mongoose.Schema({
     },
 });
 
-module.exports = {  };
+const Comment = mongoose.model('Comment', commentSchema);
+
+module.exports = Comment;

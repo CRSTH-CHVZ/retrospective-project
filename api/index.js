@@ -10,6 +10,7 @@ app.use(cors());
 const server = http.createServer(app);
 const Column = require('./models/Column');
 const Card = require('./models/Card');
+const Comment = require('./models/Comment');
 const createDefaultColumns = async () => {
     const defaultColumns = ['Que hizo bien', 'Para mejorar', 'Kudos'];
     //validamos si existen las columnas del kanban, en caso contrario se crean
@@ -59,22 +60,6 @@ app.get('/columns', async (req, res) => {
         res.status(500).send('Failed');
     }
 });
-// Metodo para llamar columnas con array de tarjetas, por el momento se desusa
-// app.get('/:columnId/cards', async (req, res) => {
-//     try {
-//         const columnId = req.params.columnId;
-//         const result = await Card.findById(columnId).populate('cards');
-//         if(!result){
-//             return res.status(404).json({message: 'Columna no encontrada'})
-//         }
-//         res.json(result.cards);
-//     }
-//     catch (err){
-//         res.status(500).json({ message:err.message});
-//     }
-// })
-
-
 // CARDS
 app.get('/cards', async (req, res) => {
     const cards = await Card.find();
@@ -82,7 +67,6 @@ app.get('/cards', async (req, res) => {
     res.json(cards);
 });
 app.post('/card/new', async (req, res) => {
-    console.log(req.body)
     try{
         const { text, isLike, columnId } = req.body;
         const column = await Column.findById(columnId);
@@ -102,20 +86,40 @@ app.post('/card/new', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Error al agregar la tarjeta' });
     }
-
 });
 app.delete('/card/delete/:id', async (req, res) => {
     const result = await Card.findByIdAndDelete(req.params.id);
     res.json(result);
 });
 app.put('/card/edit/:id', async (req, res) => {
+    const { text, column} = req.body;
     const card = await Card.findById(req.params.id);
-
-    card.text = req.body?.text;
-    card.column = req.body?.column;
-
+    card.text = text;
+    card.column = column;
     card.save();
     res.json(card);
 })
 
 //COMMENTS
+app.post('/cards/comment', async (req, res) => {
+    try{
+        const { text, cardId } = req.body;
+        const card = await Card.findById(cardId);
+        console.log('card', card)
+        if (!card) {
+            return res.status(404).json({ message: 'Tarjeta no encontrada' });
+        }
+
+        const newComment = new Comment({
+            text
+        })
+        card.comments.push(newComment);
+        await card.save();
+
+        res.json(newComment);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al agregar la comentario' });
+    }
+});
