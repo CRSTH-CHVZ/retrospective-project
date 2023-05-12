@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
 import getCols from "./services/getCols.js";
+import {Col, Container, Row} from "react-bootstrap";
+import Card from "./components/Card.jsx";
 
 function App() {
     const [cols, setCols] = useState([]);
@@ -21,15 +22,29 @@ function App() {
   return (
       <>
         <div>Mi tablero se muestra aquí</div>
-          {
-              cols.map( (el) => {
-                  return(
-                      <>
-                          {el.title}
-                      </>
-                  )
-              })
-          }
+          <Container>
+              <Row>
+                  {
+                      cols.map( (el) => {
+                          return (
+                              <Col>
+                                  {el.title}
+                                  {
+                                      el.cards?.length >= 1 ?
+                                          el.cards.map( (card) => {
+                                              return (
+                                                  <Card
+                                                      card={ card }
+                                                  />
+                                              )
+                                          }) : null
+                                  }
+                              </Col>
+                          )
+                      })
+                  }
+              </Row>
+          </Container>
       </>
   )
 }
