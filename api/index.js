@@ -12,7 +12,7 @@ const Column = require('./models/Column');
 const Card = require('./models/Card');
 const Comment = require('./models/Comment');
 const createDefaultColumns = async () => {
-    const defaultColumns = ['Que hizo bien', 'Para mejorar', 'Kudos'];
+    const defaultColumns = ['Que se hizo bien', 'Para mejorar', 'Accionables'];
     //validamos si existen las columnas del kanban, en caso contrario se crean
     for (const title of defaultColumns) {
         const existingColumn = await Column.findOne({ title });

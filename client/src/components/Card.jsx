@@ -1,18 +1,20 @@
 import React from 'react'
 
 const Card = ({card}) => {
+    const { text, comments, createdAt } = card;
     console.log(card)
   return (
     <div>
-        {card.text}
+        {text}
+        {createdAt}
         {
-            card?.comments?.length >= 1 ?
+            comments?.length >= 1 ?
                 card.comments.map( (comment) => {
+                    const { text, createdAt } = comment;
                     return(
                         <>
-                            {
-                                comment.text
-                            }
+                            <p>{text}</p>
+                            <p>{createdAt}</p>
                         </>
                     )
                 }) : null

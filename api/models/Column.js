@@ -5,9 +5,9 @@ const columnSchema = new Schema({
     title: {
         type: String,
         enum: [
-            'Que hizo bien',
+            'Que se hizo bien',
             'Para mejorar',
-            'Kudos'
+            'Accionables'
         ],
         required: true
     },

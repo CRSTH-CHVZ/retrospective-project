@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import getCols from "./services/getCols.js";
 import {Col, Container, Row} from "react-bootstrap";
-import Card from "./components/Card.jsx";
+import Columns from "./components/Columns.jsx";
+
 
 function App() {
     const [cols, setCols] = useState([]);
@@ -17,28 +18,20 @@ function App() {
     useEffect(() => {
         console.log(cols)
     }, [cols]);
-
-
   return (
       <>
-        <div>Mi tablero se muestra aquí</div>
           <Container>
+              <Row>
+                  <h1>Retrospective Project</h1>
+              </Row>
               <Row>
                   {
                       cols.map( (el) => {
                           return (
                               <Col>
-                                  {el.title}
-                                  {
-                                      el.cards?.length >= 1 ?
-                                          el.cards.map( (card) => {
-                                              return (
-                                                  <Card
-                                                      card={ card }
-                                                  />
-                                              )
-                                          }) : null
-                                  }
+                                  <Columns
+                                      el={el}
+                                  />
                               </Col>
                           )
                       })
