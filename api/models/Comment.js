@@ -10,6 +10,10 @@ const commentSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Card'
     },
+    author: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now,
