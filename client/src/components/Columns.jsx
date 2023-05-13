@@ -1,9 +1,11 @@
 import React from 'react'
 import Card from "./Card.jsx";
 import {Col} from "react-bootstrap";
+import CardForm from "./CardForm.jsx";
 
 const Columns = ({el}) => {
-    const { title, cards, color } = el;
+    const { title, cards, color, _id } = el;
+    console.log('nuevoId', _id)
   return (
       <Col
           style={{
@@ -28,7 +30,11 @@ const Columns = ({el}) => {
                   }) :
                   <i>Esto está vacío. Agrega una tarjeta</i>
           }
-          {/*Agregar tarjeta*/}
+          <CardForm
+              _id={
+              _id
+              }
+          />
       </Col>
   )
 }

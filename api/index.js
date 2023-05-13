@@ -67,8 +67,9 @@ app.get('/cards', async (req, res) => {
     res.json(cards);
 });
 app.post('/card/new', async (req, res) => {
+    console.log(req.body)
     try{
-        const { text, isLike, columnId } = req.body;
+        const { text, columnId } = req.body;
         const column = await Column.findById(columnId);
         if (!column) {
             return res.status(404).json({ message: 'Columna no encontrada' });
@@ -76,7 +77,6 @@ app.post('/card/new', async (req, res) => {
         const newCard = new Card({
             text,
             column: column._id,  // Establecer la referencia a la columna
-            isLike,
         });
         await newCard.save();
         column.cards.push(newCard._id);
