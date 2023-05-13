@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3001/card/delete/645be35425286b34519fde01
+DELETE http://localhost:3001/card/delete/645ef20b8f924427db995f9b
 
 ###
 

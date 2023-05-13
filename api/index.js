@@ -67,7 +67,6 @@ app.get('/cards', async (req, res) => {
     res.json(cards);
 });
 app.post('/card/new', async (req, res) => {
-    console.log(req.body)
     try{
         const { text, columnId } = req.body;
         const column = await Column.findById(columnId);
