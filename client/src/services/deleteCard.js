@@ -6,7 +6,6 @@ export default async function deleteCard(_id) {
         `http://localhost:3001/card/delete/${_id}`,
     )
                 .then((response) => {
-                    console.log(response)
                     return response.data;
                 })
 }

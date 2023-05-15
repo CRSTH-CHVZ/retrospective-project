@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, Card as Tarjeta} from 'react-bootstrap';
 import deleteCard from "../services/deleteCard.js";
+import EditCard from "./EditCard.jsx";
 
-const Card = ({card, arrCard, setArrCard}) => {
+const Card = ({card, arrCard, setArrCard, colId}) => {
     const { text, comments, createdAt, _id } = card;
+    const [isEdit, setIsEdit] = useState(false);
     const deleteC = async () => {
         await deleteCard(_id)
             .then((response) => {
-                console.log('delete', response.data)
-                //filter cardData by _id
                 setArrCard(
                     (arrCard) => arrCard.filter( arrCard => arrCard._id != response?._id)
                 )
@@ -30,31 +30,62 @@ const Card = ({card, arrCard, setArrCard}) => {
         >
             <Tarjeta.Body>
                 <Tarjeta.Title>
-                    {text}
+                    {
+                        isEdit ?
+                            (
+                                <EditCard
+                                    text={ text }
+                                    createdAt={ createdAt }
+                                    setIsEdit={ setIsEdit }
+                                    _id={ _id }
+                                    colId={ colId }
+                                    setArrCard={ setArrCard }
+                                    arrCard={ arrCard }
+                                />
+                            )
+                            : text
+                    }
                 </Tarjeta.Title>
                 <Tarjeta.Text>
-                    {transform(createdAt)}
+                    {
+                        isEdit ?
+                            ""
+                            : transform(createdAt)
+                    }
                 </Tarjeta.Text>
+                <Button
+                    variant="success"
+                    size="sm"
+                    style={{marginRight: "10px"}}
+                    onClick={ () => { setIsEdit(!isEdit) } }
+                >
+                    {
+                        isEdit ?
+                            "Cancelar"
+                            : "Editar"
+                    }
+                </Button>
                 <Button
                     variant="danger"
                     size="sm"
                     onClick={ () => { deleteC() } }
                 >
-                    Eliminar</Button>
+                    Eliminar
+                </Button>
             </Tarjeta.Body>
         </Tarjeta>
-        {
-            comments?.length >= 1 ?
-                card.comments.map( (comment) => {
-                    const { text, createdAt } = comment;
-                    return(
-                        <>
-                            <p>{text}</p>
-                            <p>{createdAt}</p>
-                        </>
-                    )
-                }) : null
-        }
+        {/*{*/}
+        {/*    comments?.length >= 1 ?*/}
+        {/*        card.comments.map( (comment) => {*/}
+        {/*            const { text, createdAt } = comment;*/}
+        {/*            return(*/}
+        {/*                <>*/}
+        {/*                    <p>{text}</p>*/}
+        {/*                    <p>{createdAt}</p>*/}
+        {/*                </>*/}
+        {/*            )*/}
+        {/*        }) : null*/}
+        {/*}*/}
     </div>
   )
 }

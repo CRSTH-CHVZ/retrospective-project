@@ -23,12 +23,12 @@ const Columns = ({el}) => {
           {
               arrCard?.length >= 1 ?
                   arrCard.map( (card) => {
-                      console.log(card)
                       return (
                           <Card
                               card={ card }
                               arrCard={ arrCard }
                               setArrCard={ setArrCard }
+                              colId={ _id }
                           />
                       )
                   }) :
