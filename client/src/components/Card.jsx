@@ -2,11 +2,17 @@ import React from 'react'
 import {Button, Card as Tarjeta} from 'react-bootstrap';
 import deleteCard from "../services/deleteCard.js";
 
-const Card = ({card}) => {
+const Card = ({card, arrCard, setArrCard}) => {
     const { text, comments, createdAt, _id } = card;
-    console.log('card', card)
     const deleteC = async () => {
-        await deleteCard(_id);
+        await deleteCard(_id)
+            .then((response) => {
+                console.log('delete', response.data)
+                //filter cardData by _id
+                setArrCard(
+                    (arrCard) => arrCard.filter( arrCard => arrCard._id != response?._id)
+                )
+            })
     }
     function transform(createdAt){
         const date = new Date(createdAt);
@@ -19,8 +25,9 @@ const Card = ({card}) => {
     }
   return (
     <div>
-        {createdAt}
-        <Tarjeta>
+        <Tarjeta
+            style={{marginBottom: "15px"}}
+        >
             <Tarjeta.Body>
                 <Tarjeta.Title>
                     {text}
