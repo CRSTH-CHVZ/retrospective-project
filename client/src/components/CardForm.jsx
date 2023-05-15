@@ -2,18 +2,22 @@ import React, {useEffect, useState} from 'react'
 import {Button, Form} from "react-bootstrap";
 import postCard from "../services/postCard.js";
 
-const CardForm = ({_id}) => {
+const CardForm = ({_id, cards, arrCard, setArrCard}) => {
     const [bodyCard, setBodyCard] = useState("");
     const handleChange = async () => {
         return setBodyCard(event.target.value);
-    }
+    };
     const handleSubmit = async () => {
         if( bodyCard.length === 0){
            return;
         }
         await postCard(bodyCard, _id)
+            .then((response) => {
+                setArrCard([...arrCard, response]);
+            })
         return setBodyCard("");
-    }
+    };
+
   return (
       <div
           style={{

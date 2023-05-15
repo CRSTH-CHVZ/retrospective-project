@@ -9,15 +9,12 @@ function App() {
     async function retrieveCols(){
         await getCols()
             .then( (response) => {
-                return setCols(response);s
+                return setCols(response);
             })
     }
-    useEffect(() => {
+    useEffect( () => {
         retrieveCols();
     }, []);
-    useEffect(() => {
-        console.log(cols)
-    }, [cols]);
   return (
       <>
           <Container>
