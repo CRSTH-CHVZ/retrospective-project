@@ -3,7 +3,7 @@ import {Button, Card as Tarjeta} from 'react-bootstrap';
 import deleteCard from "../services/deleteCard.js";
 import EditCard from "./EditCard.jsx";
 
-const Card = ({card, arrCard, setArrCard, colId}) => {
+const Card = ({card, arrCard, setArrCard, colId, cols}) => {
     const { text, comments, createdAt, _id } = card;
     const [isEdit, setIsEdit] = useState(false);
     const deleteC = async () => {
@@ -41,6 +41,7 @@ const Card = ({card, arrCard, setArrCard, colId}) => {
                                     colId={ colId }
                                     setArrCard={ setArrCard }
                                     arrCard={ arrCard }
+                                    cols={ cols }
                                 />
                             )
                             : text

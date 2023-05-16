@@ -3,7 +3,7 @@ import Card from "./Card.jsx";
 import {Col} from "react-bootstrap";
 import CardForm from "./CardForm.jsx";
 
-const Columns = ({el}) => {
+const Columns = ({el, cols}) => {
     const { title, cards, color, _id } = el;
     const [arrCard, setArrCard] = useState(cards);
   return (
@@ -29,6 +29,7 @@ const Columns = ({el}) => {
                               arrCard={ arrCard }
                               setArrCard={ setArrCard }
                               colId={ _id }
+                              cols={ cols }
                           />
                       )
                   }) :

@@ -91,10 +91,14 @@ app.delete('/card/delete/:id', async (req, res) => {
     res.json(result);
 });
 app.put('/card/edit/:id', async (req, res) => {
+    const ObjectId = mongoose.Types.ObjectId;
     const { text, column} = req.body;
+    console.log(column)
+    const newColumnId = new ObjectId(column);
+
     const card = await Card.findById(req.params.id);
     card.text = text;
-    card.column = column;
+    card.column = newColumnId;
     card.save();
     res.json(card);
 })

@@ -28,6 +28,7 @@ function App() {
                               <Col>
                                   <Columns
                                       el={el}
+                                      cols={ cols }
                                   />
                               </Col>
                           )
